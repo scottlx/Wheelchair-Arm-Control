@@ -1,12 +1,24 @@
 <?xml version="1.0"?>
 <robot name="my_arm">
+
+  <material name="blue">
+    <color rgba="0 0 .8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
   <link name="base_link" />
   <link name="base">
     <visual>
-      <origin xyz="0.137 0.134 0" rpy="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://my_arm/meshes/platform.stl" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name ="white"/>
     </visual>
   </link>
   <link name="elbow_link">
@@ -15,6 +27,7 @@
       <geometry>
         <mesh filename="package://my_arm/meshes/arm_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name ="blue"/>
     </visual>
   </link>
   <link name="wrist_link">
@@ -23,6 +36,7 @@
       <geometry>
         <mesh filename="package://my_arm/meshes/arm_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name ="white"/>
     </visual>
   </link>
   <link name="hand_link">
@@ -31,6 +45,7 @@
       <geometry>
         <mesh filename="package://my_arm/meshes/carpus.stl" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name ="blue"/>
     </visual>
   </link>
   <link name="gripper_link">
@@ -39,72 +54,74 @@
       <geometry>
         <mesh filename="package://my_arm/meshes/hand.stl" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name ="white"/>
     </visual>
   </link>
   <link name="finger_link1">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.1 0 0.02" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://my_arm/meshes/finger_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name ="blue"/>
     </visual>
   </link>
   <link name="finger_link2">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.1 0 0.02" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://my_arm/meshes/finger_2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name ="blue"/>
     </visual>
   </link>
 
-  <joint name="base2base_joint" type="revolute">
+  <joint name="base2base_joint" type="continuous">
     <parent link="base_link" />
     <child link="base" />
-    <limit effort="30" velocity="1.0" lower="-1.570795" upper="1.570795" />
-    <origin xyz="0 0 0" rpy="0 0 0" />
+    <origin xyz="0.137 0.134 0" rpy="0 0 0" />
     <axis xyz="0 0 1" />
   </joint>
   <joint name="base_joint" type="revolute">
     <parent link="base" />
     <child link="elbow_link" />
     <limit effort="30" velocity="1.0" lower="-1.570795" upper="1.570795" />
-    <origin xyz="0.190 0.198 0.243" rpy="0 0 0" />
-    <axis xyz="1 0 0" />
+    <origin xyz="0.053 0.064 0.243" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
   </joint>
   <joint name="elbow_joint" type="revolute">
     <parent link="elbow_link" />
     <child link="wrist_link" />
     <limit effort="30" velocity="1.0" lower="-1.570795" upper="1.570795" />
-    <origin xyz="0.371 0.104 0.520" rpy="0 0 0" />
-    <axis xyz="1 0 0" />
+    <origin xyz="0.181 -0.094 0.277" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
   </joint>
   <joint name="wrist_joint" type="revolute">
     <parent link="wrist_link" />
     <child link="hand_link" />
     <limit effort="30" velocity="1.0" lower="-1.570795" upper="1.570795" />
-    <origin xyz="0.842 0.099 0.441" rpy="0 0 0" />
-    <axis xyz="1 0 0" />
+    <origin xyz="0.471 -0.005 -0.079" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
   </joint>
-  <joint name="hand_joint" type="revolute">
+  <joint name="hand_joint" type="continuous">
     <parent link="hand_link" />
     <child link="gripper_link" />
     <limit effort="30" velocity="1.0" lower="-1.570795" upper="1.570795" />
-    <origin xyz="0.861 0.118 0.454" rpy="0 0 0" />
+    <origin xyz="0.019 0.019 0.013" rpy="0 0 0" />
     <axis xyz="1 0 0" />
   </joint>
   <joint name="finger_joint1" type="revolute">
     <parent link="gripper_link" />
     <child link="finger_link1" />
     <limit effort="30" velocity="1.0" lower="-1.570795" upper="1.570795" />
-    <origin xyz="1.116 0.125 0.526" rpy="0 0 0" />
-    <axis xyz="1 0 0" />
+    <origin xyz="0.155 0.007 0.052" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
   <joint name="finger_joint2" type="revolute">
     <parent link="gripper_link" />
     <child link="finger_link2" />
     <limit effort="30" velocity="1.0" lower="-1.570795" upper="1.570795" />
-    <origin xyz="1.116 0.184 0.526" rpy="0 0 0" />
-    <axis xyz="1 0 0" />
+    <origin xyz="0.155 0.059 0.052" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
 </robot>

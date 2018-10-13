@@ -3,7 +3,7 @@
     name="model" />
   <arg
     name="gui"
-    default="False" />
+    default="true" />
   <param
     name="robot_description"
     textfile="$(find my_arm)/urdf/my_arm.urdf" />
