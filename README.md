@@ -1,7 +1,7 @@
 # Wheelchair-Arm-Control
 
-A robot arm control library with functions of instruction interpretation, object recognition, arm motion planning and execution. 
-## Environment Setup 
+A robot arm control library with functions of instruction interpretation, object recognition, arm motion planning and execution.
+## Environment Setup
 [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)  
 [ros_control](http://wiki.ros.org/ros_control)  
 [moveit!](https://moveit.ros.org/install/)  
@@ -21,7 +21,7 @@ catkin_make
 source ../catkin_ws/devel/setup.bash
 ```
 
-## overview 
+## overview
 ### my_arm  
 urdf files, mesh files, rviz model visualize launch file, gazebo launch file.  
 
@@ -32,7 +32,7 @@ Visualize the arm model in rviz:
 Spawn the model into gazebo:  
 
 `roslaunch my_arm gazebo.launch`  
-### my_arm_control 
+### my_arm_control
 
 low_level control  
 
@@ -58,6 +58,12 @@ play with the motion_planning plugin in rviz
 `roslaunch arm_moveit_config demo`  
 
 ![alt](/demo_img/moveit.gif)  
+
+### object recognition using PCL
+
+![alt](/demo_img/point_cloud_view.JPG)
+![alt](/demo_img/pcd_location.JPG)
+![alt](/demo_img/gazebo.JPG) 
 
 ## Goals to achieve  
 
