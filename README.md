@@ -61,9 +61,19 @@ play with the motion_planning plugin in rviz
 
 ### object recognition using PCL
 
+we are using PCL(point cloud library) to process depth image data from ROS
+Here is a simple gazebo virtual environment
+containing our robotic arm, some basic background, a coke and a beer
+![alt](/demo_img/gazebo.JPG)
+You can see there is a kinectic depth camera besides the arm_moveit_config
+Here is what the depth camera sees:
 ![alt](/demo_img/point_cloud_view.JPG)
+
+we are using group corresponding methods to find the coke can in the virtual environment
 ![alt](/demo_img/pcd_location.JPG)
-![alt](/demo_img/gazebo.JPG) 
+You can see that rotational matrix and transitional matrix being calculated.
+
+
 
 ## Goals to achieve  
 
