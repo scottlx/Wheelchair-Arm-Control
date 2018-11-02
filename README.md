@@ -49,7 +49,7 @@ Then apply a sinusoid wave to each joint
 
 ![alt](/demo_img/publisher.png)  
 
-In gazebo:  
+Here is what you see in gazebo. Each joints is revoluting with a force of sinusoid wave:  
 ![alt](/demo_img/gazebo.gif)  
 
 ### arm_moveit_config  
