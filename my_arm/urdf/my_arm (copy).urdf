@@ -11,7 +11,7 @@
     <color rgba="1 1 1 1"/>
   </material>
 
-  <link name="world"/>
+  <link name="base_link" />
 
   <link name="base">
     <visual>
@@ -30,7 +30,7 @@
     <inertial>
       <origin rpy="0 0 0" xyz="0.004190989 0.00646279 0.063222557"/>
       <mass value="1"/>
-    <inertia ixx="0.0125" ixy="0" ixz="0" iyy="0.009" iyz="0" izz="0.009"/>
+    <inertia ixx="42671.665152" ixy="-170.122720" ixz="-2806.081792" iyy="45598.126080" iyz="-166.363328" izz="66783.621120"/>
     </inertial>
   </link>
 
@@ -51,7 +51,7 @@
     <inertial>
       <origin rpy="0 0 0" xyz="0.052649582 0.057137184 0.133373611"/>
       <mass value="1"/>
-    <inertia ixx="0.029" ixy="0" ixz="0" iyy="0.03198" iyz="0" izz="0.220"/>
+    <inertia ixx="28872.232960" ixy="15.032029" ixz="716.172992" iyy="27957.540864" iyz="8.286923" izz="6728.539648"/>
     </inertial>
   </link>
 
@@ -72,7 +72,7 @@
     <inertial>
       <origin rpy="0 0 0" xyz="-0.008036790 0.031757582 0.188686127"/>
       <mass value="1"/>
-    <inertia ixx="0.015" ixy="0" ixz="0" iyy="0.238481" iyz="0" izz="0.245072"/>
+    <inertia ixx="47496.544256" ixy="-12.229211" ixz="1797.142656" iyy="48284.073984" iyz="20.978956" izz="2536.107264"/>
     </inertial>
   </link>
 
@@ -93,7 +93,7 @@
     <inertial>
       <origin rpy="0 0 0" xyz="0.028896175 0.036595043 0.087612099"/>
       <mass value="1"/>
-    <inertia ixx="0.01901" ixy="0" ixz="0" iyy="0.03497" iyz="0" izz="0.028442"/>
+    <inertia ixx="1867.552768" ixy="-0.000095417305" ixz="0.195820593750" iyy="1840.582272" iyz="-0.000011109801" izz="451.477600"/>
     </inertial>
   </link>
 
@@ -114,7 +114,7 @@
     <inertial>
       <origin rpy="0 0 0" xyz="0.028896175 0.036595043 0.087612099"/>
       <mass value="1"/>
-    <inertia ixx="0.008693" ixy="0" ixz="0" iyy="0.039554" iyz="0" izz="0.037589"/>
+    <inertia ixx="1867.552768" ixy="-0.000095417305" ixz="0.195820593750" iyy="1840.582272" iyz="-0.000011109801" izz="451.477600"/>
     </inertial>
   </link>
 
@@ -135,7 +135,7 @@
     <inertial>
       <origin rpy="0 0 0" xyz="0.010424928 0.016705904 0.035355106"/>
       <mass value="1"/>
-    <inertia ixx="0.00125" ixy="0" ixz="0" iyy="0.007345" iyz="0" izz="0.007002"/>
+    <inertia ixx="9.274621" ixy="-0.000133487228" ixz="-0.014046430664" iyy="9.224906" iyz="-0.0762759375" izz="1.227274"/>
     </inertial>
   </link>
 
@@ -156,12 +156,12 @@
     <inertial>
       <origin rpy="0 0 0" xyz="0.010432852 -0.009562554 0.039894608"/>
       <mass value="1"/>
-    <inertia ixx="0.00125" ixy="0" ixz="0" iyy="0.007345" iyz="0" izz="0.007002"/>
+    <inertia ixx="9.274626" ixy="0.000133295685" ixz="-0.014046378906" iyy="9.224907" iyz="0.076274" izz="1.227275"/>
     </inertial>
   </link>
 
   <joint name="base2base_joint" type="continuous">
-    <parent link="world" />
+    <parent link="base_link" />
     <child link="base" />
     <origin xyz="0.137 0.137 0" rpy="0 0 0" />
     <axis xyz="0 0 1" />
@@ -215,88 +215,5 @@
     <axis xyz="1 0 0" />
   </joint>
 
-  <transmission name="tran1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="base2base_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor1">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran2">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="base_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor2">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran3">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="elbow_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor3">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran4">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wrist_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor4">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran5">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="hand_joint">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor5">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran6">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="finger_joint1">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor6">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran7">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="finger_joint2">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor7">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-<gazebo>
-  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-    <robotNamespace>/my_arm</robotNamespace>
-    <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-  </plugin>
-</gazebo>
 
 </robot>

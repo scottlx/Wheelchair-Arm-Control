@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: my_arm
+    relative_path: urdf/my_arm.urdf
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/my_arm.srdf
+  CONFIG:
+    author_name: Xun Lin
+    author_email: xunlin@bu.edu
+    generated_timestamp: 1541102530
