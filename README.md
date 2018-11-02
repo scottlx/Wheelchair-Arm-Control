@@ -84,7 +84,7 @@ The green dots in the picture are the matched corresponding points
 
 1. make sure you have install [PCL_ROS](http://wiki.ros.org/pcl_ros) which is a ROS package used as an interface with PCL
 2. make sure you have publish your points information to rostopic
-   run `rostopic list` to see whether you have '/camera/depth/points'
+   run `rostopic list` to see whether you have `/camera/depth/points`
 3. run `cd pcl & rosrun pcl_ros pointcloud_to_pcd input:=/camera/depth/points`
    this will save pcd file to local directory, you can change the name to scene.pcd
 4. run
