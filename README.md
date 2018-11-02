@@ -6,6 +6,9 @@ A robot arm control library with functions of instruction interpretation, object
 [ros_control](http://wiki.ros.org/ros_control)  
 [moveit!](https://moveit.ros.org/install/)  
 [gazebo_ros_pkgs](http://wiki.ros.org/gazebo_ros_pkgs)  
+[PointCloudLibrary](http://www.pointclouds.org/downloads/linux.html)
+[PCL_ROS](http://library.isr.ist.utl.pt/docs/roswiki/Documentation.html)
+
 
 ## How to run  
 0. clone to your ros catkin workspace and build the package  
@@ -66,13 +69,26 @@ Here is a simple gazebo virtual environment
 containing our robotic arm, some basic background, a coke and a beer
 ![alt](/demo_img/gazebo.JPG)
 You can see there is a kinectic depth camera besides the arm_moveit_config
+
+
+
 Here is what the depth camera sees:
 ![alt](/demo_img/point_cloud_view.JPG)
 
-we are using group corresponding methods to find the coke can in the virtual environment
+
+we are using [Correspondence Grouping](http://www.pointclouds.org/documentation/tutorials/correspondence_grouping.php) methods to find the coke can in the virtual environment
 ![alt](/demo_img/pcd_location.JPG)
 You can see that rotational matrix and transitional matrix being calculated.
+The green dots in the picture are the matched corresponding points
+#### how to run pcl_recognition
 
+1. make sure you have install [PCL_ROS](http://wiki.ros.org/pcl_ros) which is a ROS package used as an interface with PCL
+2. make sure you have publish your points information to rostopic
+   run `rostopic list` to see whether you have '/camera/depth/points'
+3. run `cd pcl & rosrun pcl_ros pointcloud_to_pcd input:=/camera/depth/points`
+   this will save pcd file to local directory, you can change the name to scene.pcd
+4. run
+  ```./pcl coke_model.pcd scene.pcd -k -c --model_ss 0.02 --scene_ss 0.02 --cg_thresh 5 --cg_size 0.13```
 
 
 ## Goals to achieve  
