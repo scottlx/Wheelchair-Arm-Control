@@ -95,4 +95,5 @@ The green dots in the picture are the matched corresponding points
 ## Goals to achieve  
 
 1. Apply motion planning to low level control (ros_control)  
-2. Use C++ or Python to do the planning rather than rviz plugin.  
+2. Use C++ or Python to do the planning rather than rviz plugin.
+3. Implement 6DOF coordinate transformation from model-scene to arm-scene
