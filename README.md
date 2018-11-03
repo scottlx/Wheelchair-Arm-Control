@@ -2,13 +2,14 @@
 
 A robot arm control library with functions of instruction interpretation, object recognition, arm motion planning and execution.
 ## Environment Setup
-[Ubuntu 18.04.1 LTS](http://releases.ubuntu.com/18.04)
+[Ubuntu 18.04.1 LTS](http://releases.ubuntu.com/18.04)  
 [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)  
 [ros_control](http://wiki.ros.org/ros_control)  
 [moveit!](https://moveit.ros.org/install/)  
 [gazebo_ros_pkgs](http://wiki.ros.org/gazebo_ros_pkgs)  
+[PCL_ROS](http://library.isr.ist.utl.pt/docs/roswiki/Documentation.html)  
 [PointCloudLibrary](http://www.pointclouds.org/downloads/linux.html)
-[PCL_ROS](http://library.isr.ist.utl.pt/docs/roswiki/Documentation.html)
+
 
 
 ## How to run  
