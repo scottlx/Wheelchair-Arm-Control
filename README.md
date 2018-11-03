@@ -2,7 +2,8 @@
 
 A robot arm control library with functions of instruction interpretation, object recognition, arm motion planning and execution.
 ## Environment Setup
-[Ubuntu 18.04.1 LTS](http://releases.ubuntu.com/18.04/)
+[Ubuntu 18.04.1 LTS](http://releases.ubuntu.com/18.04)
+
 [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)  
 [ros_control](http://wiki.ros.org/ros_control)  
 [moveit!](https://moveit.ros.org/install/)  
