@@ -8,5 +8,5 @@ include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
-add_executable (ork correspondence_grouping.cpp)
-target_link_libraries (ork ${PCL_LIBRARIES})
+add_executable (pcl correspondence_grouping.cpp)
+target_link_libraries (pcl ${PCL_LIBRARIES})
