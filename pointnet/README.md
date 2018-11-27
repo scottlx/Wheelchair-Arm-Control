@@ -41,3 +41,8 @@ of the object you are interested in
 class_names.txt tf_utils.py
 ```
 these are just utils files
+
+```
+recognize.py
+```
+example usage, please see details in the file
