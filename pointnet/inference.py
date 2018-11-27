@@ -50,7 +50,7 @@ def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PA
            'pred': pred}
 
     out_data_label_filename = "output_prediction.txt"
-    eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT)
+    return eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT)
 
 def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT,no_clutter=False):
     is_training = False
