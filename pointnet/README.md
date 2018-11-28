@@ -46,3 +46,4 @@ these are just utils files
 recognize.py
 ```
 example usage, please see details in the file
+you can customize offset for kinect camera, currently only support transition
