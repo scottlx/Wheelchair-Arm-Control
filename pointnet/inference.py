@@ -51,8 +51,10 @@ def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PA
 
     out_data_label_filename = "output_prediction.txt"
     location, std = eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT)
-
-    return (location-np.asarray([x_offset,y_offset, z_offset])).tolist(), std
+    temp = location[0]
+    location[0] = location[1]
+    location[1] = temp
+    return (location+np.asarray([x_offset,y_offset, z_offset])).tolist(), std
 
 
 
