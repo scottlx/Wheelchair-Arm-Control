@@ -97,3 +97,11 @@ The green dots in the picture are the matched corresponding points
 1. Apply motion planning to low level control (ros_control)  
 2. Use C++ or Python to do the planning rather than rviz plugin.
 3. Implement 6DOF coordinate transformation from model-scene to arm-scene
+
+## Alexa
+
+1.Go to Alexa developer console to create a new skill https://developer.amazon.com/alexa/console/ask
+2.Go to A mazon Web Service to create new Lambda function and ioT service https://console.aws.amazon.com/console/home?region=us-east-1# 
+3.Use Alexa_skill.json to deploy your new skill
+4.Upload Lambda_arm_control.zip to deploy your Lambda function
+5.Connect three part together, and now you can see the topic published in AWS ioT MQTT client when you give new voice command to the Alexa
