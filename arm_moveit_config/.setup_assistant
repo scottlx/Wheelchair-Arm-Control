@@ -6,6 +6,6 @@ moveit_setup_assistant_config:
   SRDF:
     relative_path: config/my_arm.srdf
   CONFIG:
-    author_name: Xun Lin
+    author_name: xunlin
     author_email: xunlin@bu.edu
-    generated_timestamp: 1541102530
+    generated_timestamp: 1543379070

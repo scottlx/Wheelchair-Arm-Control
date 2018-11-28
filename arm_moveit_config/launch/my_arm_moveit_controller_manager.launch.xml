@@ -4,7 +4,5 @@
  <param name="moveit_controller_manager" value="$(arg moveit_controller_manager)"/>
  <!-- load controller_list -->
  <rosparam file="$(find arm_moveit_config)/config/controllers.yaml"/>
- <node pkg="moveit_ros_move_group" type="move_group" name="any_name" output="screen">
-  <remap from="/joint_states" to="/my_arm/joint_states" />
-</node>
+ <param name="trajectory_execution/execution_duration_monitoring" value="false"/>
 </launch>

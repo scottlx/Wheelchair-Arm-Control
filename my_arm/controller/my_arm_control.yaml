@@ -1,0 +1,36 @@
+arm_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+     - base2base_joint
+     - base_joint
+     - elbow_joint
+     - wrist_joint
+     - hand_joint
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.05
+      base2base_joint: {trajectory: 0.1, goal: 0.1}
+      base_joint: {trajectory: 0.1, goal: 0.1}
+      elbow_joint: {trajectory: 0.1, goal: 0.1}
+      wrist_joint: {trajectory: 0.1, goal: 0.1}
+      hand_joint: {trajectory: 0.1, goal: 0.1}
+  gains:
+      base2base_joint: {p: 1000.0, d: 10.0, i: 0.01, i_clamp: 1}
+      base_joint: {p: 1000.0, d: 10.0, i: 0.01, i_clamp: 1}
+      elbow_joint: {p: 1000.0, d: 10.0, i: 0.01, i_clamp: 1}
+      wrist_joint: {p: 1000.0, d: 10.0, i: 0.01, i_clamp: 1}
+      hand_joint: {p: 1000.0, d: 10.0, i: 0.01, i_clamp: 1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  25
+  action_monitor_rate: 10
+
+
+/gazebo_ros_control:
+ pid_gains:
+      base2base_joint: {p: 1000.0, d: 10.0, i: 0.01}
+      base_joint: {p: 1000.0, d: 10.0, i: 0.01}
+      elbow_joint: {p: 1000.0, d: 10.0, i: 0.01}
+      wrist_joint: {p: 1000.0, d: 10.0, i: 0.01}
+      hand_joint: {p: 1000.0, d: 10.0, i: 0.01}
+      finger_joint1: {p: 1000.0, d: 10.0, i: 0.01}
+      finger_joint2: {p: 1000.0, d: 10.0, i: 0.01}
