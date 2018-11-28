@@ -23,7 +23,7 @@ g_class2color = {'ceiling':	[0,255,0],
 g_label2color = {g_classes.index(cls): g_class2color[cls] for cls in g_classes}
 
 
-def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PATH='ckpt/model.ckpt'):
+def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PATH='ckpt/model.ckpt', x_offset=0.35,y_offset=0.137, z_offset=0.1):
     is_training = False
 
     pointclouds_pl, labels_pl = placeholder_inputs(BATCH_SIZE, NUM_POINT)
@@ -50,7 +50,11 @@ def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PA
            'pred': pred}
 
     out_data_label_filename = "output_prediction.txt"
-    return eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT)
+    location, std = eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT)
+
+    return (location-np.asarray([x_offset,y_offset, z_offset])).tolist(), std
+
+
 
 def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT,no_clutter=False):
     is_training = False
@@ -60,7 +64,7 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
     #fout_data_label = open(out_data_label_filename, 'w')
 
     print("getting point cloud data from rostopic...")
-    current_data,max_room = pointcloud_wrapper()
+    current_data,max_room, shift_history = pointcloud_wrapper()
     print("pointnet inferencing...")
     current_data = current_data[:,0:NUM_POINT,:]
     # Get room dimension..
@@ -123,7 +127,7 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
         std = np.std(position_label,axis=0)
         print("predict object location = "+str(mean_location))
         print("standard deviation along x y z axis: "+str(std))
-        return mean_location.tolist(), std.tolist()
+        return mean_location + np.asarray(shift_history), std.tolist()
     else:
         print("no point recognized as "+str(label_to_detect))
         exit()

@@ -114,8 +114,8 @@ def align_shift(input_array):
     input_array[:,1] -= min_xyz[1]
     input_array[:,2] -= min_xyz[2]
     sorted_array = input_array[input_array[:,0].argsort()]
-
-    return sorted_array
+    shift_history = [min_xyz[0],min_xyz[1],min_xyz[2]]
+    return sorted_array, shift_history
 
 def pointcloud_wrapper(topic='/camera/depth/points'):
     pc_arr = topic2array(topic)
@@ -124,8 +124,9 @@ def pointcloud_wrapper(topic='/camera/depth/points'):
         print("rostopic list")
         print("in terminal and make sure you see /camera/depth/points")
         exit()
-    pointclouds_np = align_shift(pc_arr)
-    return room2blocks_plus_normalized(pointclouds_np,num_point=4096)
+    pointclouds_np, shift_history = align_shift(pc_arr)
+    new_data_batch, max_room = room2blocks_plus_normalized(pointclouds_np,num_point=4096)
+    return new_data_batch, max_room,shift_history
 
 
 if __name__ == "__main__":

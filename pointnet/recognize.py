@@ -21,7 +21,7 @@ from inference import evaluate
 #----------------------------------------------------------------------------
 
 
-location, std = evaluate(label_to_detect=12)
+location, std = evaluate(label_to_detect=12, x_offset=0.35,y_offset=0.137, z_offset=0.1)
 #you will have mean location std of the object belong to clutter class
 #if you run this on tensorflow-cpu, it will be slow when doing
 #neural network inference, proberly 60 secs.
