@@ -51,10 +51,14 @@ def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PA
 
     out_data_label_filename = "output_prediction.txt"
     location, std = eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT)
-    temp = location[0]
-    location[0] = location[1]
-    location[1] = temp
-    return (location+np.asarray([x_offset,y_offset, z_offset])).tolist(), std
+
+
+    x = location[2] + x_offset
+    y = -location[0] + y_offset
+    z = -location[1] + z_offset
+    print("location based on global coordination = "+str([x,y,z]))
+    print("standard deviation along x y z axis: "+str(std))
+    return [x,y,z], std
 
 
 
@@ -62,18 +66,29 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
     is_training = False
 
     # if FLAGS.visu:
-    #     fout = open('visualization_pred.obj', 'w')
+    # fout = open('visualization_pred.obj', 'w')
     #fout_data_label = open(out_data_label_filename, 'w')
 
     print("getting point cloud data from rostopic...")
+
     current_data,max_room, shift_history = pointcloud_wrapper()
+    # np.save("current_data",current_data)
+    # np.save("max_room",max_room)
+    # np.save("shift_history",shift_history)
+    # exit()
+
+    # current_data = np.load("current_data.npy")
+    # max_room = np.load("max_room.npy")
+    # shift_history  = np.load("shift_history.npy")
+
+
+    print("point cloud shape is "+str(current_data.shape))
     print("pointnet inferencing...")
     current_data = current_data[:,0:NUM_POINT,:]
     # Get room dimension..
     max_room_x = max_room[0]
     max_room_y = max_room[1]
     max_room_z = max_room[2]
-
     file_size = current_data.shape[0]
     num_batches = file_size // BATCH_SIZE
     #print("file size = "+str(file_size))
@@ -110,26 +125,25 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
             for i in range(NUM_POINT):
                 color = g_label2color[pred[i]]
                 # if FLAGS.visu:
-                #     fout.write('v %f %f %f %d %d %d\n' % (pts[i,6], pts[i,7], pts[i,8], color[0], color[1], color[2]))
+                # fout.write('v %f %f %f %d %d %d\n' % (pts[i,6], pts[i,7], pts[i,8], color[0], color[1], color[2]))
+
                 #fout_data_label.write('%f %f %f %d %d %d %f %d\n' % (pts[i,6], pts[i,7], pts[i,8], pts[i,3], pts[i,4], pts[i,5], pred_val[b,i,pred[i]], pred[i]))
                 if pred[i]==label_to_detect:
                     position_label = np.append(position_label,[[pts[i,6], pts[i,7], pts[i,8]]],axis=0)
 
 
-
-
-
-
     #fout_data_label.close()
     # if FLAGS.visu:
-    #     fout.close()
+    # fout.close()
     if position_label.shape[0] > 0:
         print("found "+str(position_label.shape[0])+" points belong to the object")
         mean_location = np.mean(position_label,axis=0)
         std = np.std(position_label,axis=0)
-        print("predict object location = "+str(mean_location))
-        print("standard deviation along x y z axis: "+str(std))
-        return mean_location + np.asarray(shift_history), std.tolist()
+        print("before shift location = "+str(mean_location))
+        #print("shift_history = "+str(shift_history))
+        shifted_location = mean_location + np.asarray(shift_history)
+        #print("shifted_location = "+str(shifted_location))
+        return shifted_location, std.tolist()
     else:
         print("no point recognized as "+str(label_to_detect))
         exit()
