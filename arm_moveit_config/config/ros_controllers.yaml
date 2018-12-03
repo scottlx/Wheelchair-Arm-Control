@@ -15,6 +15,7 @@ my_arm:
       - elbow_joint
       - wrist_joint
       - hand_joint
+      - end_joint
       - finger_joint1
       - finger_joint2
     sim_control_mode: 1  # 0: position, 1: velocity
@@ -24,13 +25,6 @@ my_arm:
     type: joint_state_controller/JointStateController
     publish_rate: 50
   controller_list:
-    - name: gripper_controller
-      action_ns: follow_joint_trajectory
-      default: True
-      type: FollowJointTrajectory
-      joints:
-        - finger_joint1
-        - finger_joint2
     - name: arm_controller
       action_ns: follow_joint_trajectory
       default: True
@@ -41,3 +35,10 @@ my_arm:
         - elbow_joint
         - wrist_joint
         - hand_joint
+    - name: gripper_controller
+      action_ns: follow_joint_trajectory
+      default: True
+      type: FollowJointTrajectory
+      joints:
+        - finger_joint1
+        - finger_joint2
