@@ -66,13 +66,7 @@ def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PA
     out_data_label_filename = "output_prediction.txt"
     location, std = eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT,x_offset=0.35,y_offset=0.137, z_offset=0.1,VISU=VISU)
 
-
-    x = location[2] + x_offset
-    y = -location[0] + y_offset
-    z = -location[1] + z_offset
-    print("location based on global coordination = "+str([x,y,z]))
-    print("standard deviation along x y z axis: "+str(std))
-    return [x,y,z], std
+    return location, std
 
 
 
@@ -86,15 +80,15 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
 
     print("getting point cloud data from rostopic...")
 
-    # current_data,max_room, shift_history = pointcloud_wrapper()
+    current_data,max_room, shift_history = pointcloud_wrapper()
     # np.save("current_data",current_data)
     # np.save("max_room",max_room)
     # np.save("shift_history",shift_history)
     # exit()
 
-    current_data = np.load("current_data.npy")
-    max_room = np.load("max_room.npy")
-    shift_history  = np.load("shift_history.npy")
+    # current_data = np.load("current_data.npy")
+    # max_room = np.load("max_room.npy")
+    # shift_history  = np.load("shift_history.npy")
 
 
     print("point cloud shape is "+str(current_data.shape))
@@ -149,7 +143,6 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
                     position_label = np.append(position_label,[[pts[i,6], pts[i,7], pts[i,8]]],axis=0)
                 else:
                     scene_out.write('v %f %f %f\n' % (pts[i,8]+shift_history[2]+x_offset, -(pts[i,6]+shift_history[0])+y_offset,-(pts[i,7]+shift_history[1])+z_offset ))
-                    #scene_point = np.append(scene_point,[[pts[i,6], pts[i,7], pts[i,8]]],axis=0)
     scene_out.close()
     #fout_data_label.close()
     if VISU:
@@ -158,16 +151,11 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
         print("found "+str(position_label.shape[0])+" points belong to the object")
         print(position_label.shape)
         object_points = retranspose(position_label,x_offset,y_offset,z_offset,np.asarray(shift_history))
-        scene_point =  retranspose(scene_point,x_offset,y_offset,z_offset,np.asarray(shift_history))
 
         obj_out = open('coke_object.obj', 'w')
-        #scene_out = open('scene.obj', 'w')
         for point_idx in range(object_points.shape[0]):
             obj_out.write('v %f %f %f\n' % (object_points[point_idx,0], object_points[point_idx,1],object_points[point_idx,2]))
-        # for point_idx in range(scene_point.shape[0]):
-        #     scene_out.write('v %f %f %f\n' % (scene_point[point_idx,0], scene_point[point_idx,1],scene_point[point_idx,2]))
         obj_out.close()
-        #scene_out.close()
 
 
 
