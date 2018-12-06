@@ -23,7 +23,7 @@ g_class2color = {'ceiling':	[0,255,0],
 g_label2color = {g_classes.index(cls): g_class2color[cls] for cls in g_classes}
 
 
-def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PATH='ckpt/model.ckpt', x_offset=0.35,y_offset=0.137, z_offset=0.1):
+def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PATH='ckpt/model.ckpt', x_offset=0.35,y_offset=0.137, z_offset=0.1,VISU = True):
     is_training = False
 
     pointclouds_pl, labels_pl = placeholder_inputs(BATCH_SIZE, NUM_POINT)
@@ -50,7 +50,7 @@ def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PA
            'pred': pred}
 
     out_data_label_filename = "output_prediction.txt"
-    location, std = eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT)
+    location, std = eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT,VISU)
 
 
     x = location[2] + x_offset
@@ -62,11 +62,11 @@ def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PA
 
 
 
-def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT,no_clutter=False):
+def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT, VISU=True):
     is_training = False
 
-    # if FLAGS.visu:
-    # fout = open('visualization_pred.obj', 'w')
+    # if VISU:
+    #     fout = open('visualization_pred.obj', 'w')
     #fout_data_label = open(out_data_label_filename, 'w')
 
     print("getting point cloud data from rostopic...")
@@ -104,10 +104,10 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
         pred_val = sess.run( ops['pred'],feed_dict=feed_dict)
 
 
-        if no_clutter:
-            pred_label = np.argmax(pred_val[:,:,0:12], 2) # BxN
-        else:
-            pred_label = np.argmax(pred_val, 2) # BxN
+        # if no_clutter:
+        #     pred_label = np.argmax(pred_val[:,:,0:12], 2) # BxN
+        # else:
+        pred_label = np.argmax(pred_val, 2) # BxN
         # Save prediction labels to OBJ file
         # create numpy array with xyz and label
 
@@ -124,8 +124,8 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
 
             for i in range(NUM_POINT):
                 color = g_label2color[pred[i]]
-                # if FLAGS.visu:
-                # fout.write('v %f %f %f %d %d %d\n' % (pts[i,6], pts[i,7], pts[i,8], color[0], color[1], color[2]))
+                # if VISU:
+                #     fout.write('v %f %f %f %d %d %d\n' % (pts[i,6], pts[i,7], pts[i,8], color[0], color[1], color[2]))
 
                 #fout_data_label.write('%f %f %f %d %d %d %f %d\n' % (pts[i,6], pts[i,7], pts[i,8], pts[i,3], pts[i,4], pts[i,5], pred_val[b,i,pred[i]], pred[i]))
                 if pred[i]==label_to_detect:
@@ -133,8 +133,8 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
 
 
     #fout_data_label.close()
-    # if FLAGS.visu:
-    # fout.close()
+    # if VISU:
+    #     fout.close()
     if position_label.shape[0] > 0:
         print("found "+str(position_label.shape[0])+" points belong to the object")
         mean_location = np.mean(position_label,axis=0)
@@ -154,8 +154,7 @@ if __name__=='__main__':
     parser.add_argument('--batch_size', type=int, default=1, help='Batch Size during training [default: 1]')
     parser.add_argument('--num_point', type=int, default=4096, help='Point number [default: 4096]')
     parser.add_argument('--model_path', default='ckpt/model.ckpt', help='model checkpoint file path')
-    parser.add_argument('--no_clutter', action='store_true', help='If true, donot count the clutter class')
-    parser.add_argument('--visu', action='store_true', help='Whether to output OBJ file for prediction visualization.')
+    # parser.add_argument('--no_clutter', action='store_true', help='If true, donot count the clutter class')
     FLAGS = parser.parse_args()
 
     BATCH_SIZE = FLAGS.batch_size
