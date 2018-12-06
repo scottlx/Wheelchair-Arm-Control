@@ -15,6 +15,34 @@ Basiclly, do the things below:
 [gazebo_ros_pkgs](http://wiki.ros.org/gazebo_ros_pkgs)
 [python 2.7](https://www.python.org/download/releases/2.7/)
 [tensorflow 1.0](https://www.tensorflow.org/api_guides/python/upgrade)
+[meshlab](http://www.meshlab.net/)  
+
+
+## mesh
+### important!,this version require meshlab
+so please install meshlab first
+```
+sudo apt-get install meshlab
+```
+
+
+all the files below are in global coordination
+
+```
+coke_object.obj
+```
+this is object (for example coke can) points picked out from scene
+
+```
+scene.obj
+```
+the remain points(except coke can)
+
+```
+scene.stl
+```
+stl file of scene.ojb converted by meshlab
+
 
 
 
@@ -47,22 +75,3 @@ recognize.py
 ```
 example usage, please see details in the file
 you can customize offset for kinect camera, currently only support transition
-
-## mesh
-
-all the files below are in global coordination
-
-```
-coke_object.obj
-```
-this is object (for example coke can) points picked out from scene
-
-```
-scene.obj
-```
-the remain points(except coke can)
-
-```
-scene.stl
-```
-stl file of scene.ojb converted by meshlab
