@@ -65,8 +65,8 @@ def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PA
 def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT, VISU=True):
     is_training = False
 
-    # if VISU:
-    #     fout = open('visualization_pred.obj', 'w')
+    if VISU:
+        fout = open('visualization_pred.obj', 'w')
     #fout_data_label = open(out_data_label_filename, 'w')
 
     print("getting point cloud data from rostopic...")
@@ -124,8 +124,8 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
 
             for i in range(NUM_POINT):
                 color = g_label2color[pred[i]]
-                # if VISU:
-                #     fout.write('v %f %f %f %d %d %d\n' % (pts[i,6], pts[i,7], pts[i,8], color[0], color[1], color[2]))
+                if VISU:
+                    fout.write('v %f %f %f %d %d %d\n' % (pts[i,6], pts[i,7], pts[i,8], color[0], color[1], color[2]))
 
                 #fout_data_label.write('%f %f %f %d %d %d %f %d\n' % (pts[i,6], pts[i,7], pts[i,8], pts[i,3], pts[i,4], pts[i,5], pred_val[b,i,pred[i]], pred[i]))
                 if pred[i]==label_to_detect:
@@ -133,8 +133,8 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
 
 
     #fout_data_label.close()
-    # if VISU:
-    #     fout.close()
+    if VISU:
+        fout.close()
     if position_label.shape[0] > 0:
         print("found "+str(position_label.shape[0])+" points belong to the object")
         mean_location = np.mean(position_label,axis=0)
