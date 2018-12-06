@@ -47,3 +47,22 @@ recognize.py
 ```
 example usage, please see details in the file
 you can customize offset for kinect camera, currently only support transition
+
+## mesh
+
+all the files below are in global coordination
+
+```
+coke_object.obj
+```
+this is object (for example coke can) points picked out from scene
+
+```
+scene.obj
+```
+the remain points(except coke can)
+
+```
+scene.stl
+```
+stl file of scene.ojb converted by meshlab
