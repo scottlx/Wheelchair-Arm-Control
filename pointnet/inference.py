@@ -71,15 +71,15 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
 
     print("getting point cloud data from rostopic...")
 
-    current_data,max_room, shift_history = pointcloud_wrapper()
+    # current_data,max_room, shift_history = pointcloud_wrapper()
     # np.save("current_data",current_data)
     # np.save("max_room",max_room)
     # np.save("shift_history",shift_history)
     # exit()
 
-    # current_data = np.load("current_data.npy")
-    # max_room = np.load("max_room.npy")
-    # shift_history  = np.load("shift_history.npy")
+    current_data = np.load("current_data.npy")
+    max_room = np.load("max_room.npy")
+    shift_history  = np.load("shift_history.npy")
 
 
     print("point cloud shape is "+str(current_data.shape))
