@@ -4,9 +4,19 @@ import paho.mqtt.client as mqtt
 import os
 import socket
 import ssl
+import sys
+sys.path.insert(0, './../pointnet')
+from inference import evaluate
+import rospy
+from roslib import message
+from std_msgs.msg import String
+
 
 def on_connect(client, userdata, flags, rc):
-    print("Connection returned result: " + str(rc) )
+    if rc == 0:
+        print("connect to Alexa success")
+    else:
+        print("Connection returned result: " + str(rc) )
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
     client.subscribe("#" , 1 )
@@ -14,7 +24,10 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("topic: "+msg.topic)
     print("Payload Data: "+str(msg.payload))
-    yield str(msg.payload)
+    if str(msg.payload) == 'bottle':
+        os.chdir("./../pointnet")
+        location, std = evaluate(label_to_detect=12, x_offset=0.35,y_offset=0.137, z_offset=0.1)
+        print(location, std)
 
 
 mqttc = mqtt.Client()
