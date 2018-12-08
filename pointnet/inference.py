@@ -56,13 +56,13 @@ def evaluate(label_to_detect=NUM_CLASSES-1, BATCH_SIZE=1,NUM_POINT=4096,MODEL_PA
            'pred': pred}
 
     out_data_label_filename = "output_prediction.txt"
-    location, std = eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT,x_offset=0.35,y_offset=0.137, z_offset=0.1,VISU=VISU)
+    location, std = eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT,x_offset=x_offset,y_offset=y_offset, z_offset=y_offset,VISU=VISU)
 
     return location, std
 
 
 
-def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT,x_offset=0.35,y_offset=0.137, z_offset=0.1, VISU=True):
+def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZE,NUM_POINT,x_offset,y_offset, z_offset, VISU=True):
     is_training = False
 
     if VISU:
