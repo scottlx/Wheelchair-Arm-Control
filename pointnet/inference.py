@@ -23,14 +23,6 @@ g_class2color = {'ceiling':	[0,255,0],
                  'clutter':     [50,50,50]}
 g_label2color = {g_classes.index(cls): g_class2color[cls] for cls in g_classes}
 
-def retranspose(points,x_offset,y_offset,z_offset,shift_history):
-    assert points.shape[1] == 3, "retranspose fail, points must be only xyz"
-    for i in range(3):
-        points[:,i] = points[:,i]+shift_history[i]
-    x = np.expand_dims(points[:,2] + x_offset,axis=1)
-    y = np.expand_dims((-points[:,0]) + y_offset,axis=1)
-    z = np.expand_dims((-points[:,1]) + z_offset, axis=1)
-    return np.concatenate((x,y,z),axis=1)
 
 
 
@@ -136,13 +128,13 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
             for i in range(NUM_POINT):
                 color = g_label2color[pred[i]]
                 if VISU:
-                    fout.write('v %f %f %f %d %d %d\n' % (pts[i,6], pts[i,7], pts[i,8], color[0], color[1], color[2]))
+                    fout.write('v %f %f %f %d %d %d\n' % (pts[i,6]+shift_history[0]+x_offset, pts[i,7]+shift_history[1]+y_offset,pts[i,8]+shift_history[2]+z_offset , color[0], color[1], color[2]))
 
                 #fout_data_label.write('%f %f %f %d %d %d %f %d\n' % (pts[i,6], pts[i,7], pts[i,8], pts[i,3], pts[i,4], pts[i,5], pred_val[b,i,pred[i]], pred[i]))
                 if pred[i]==label_to_detect:
-                    position_label = np.append(position_label,[[pts[i,6], pts[i,7], pts[i,8]]],axis=0)
+                    position_label = np.append(position_label,[[pts[i,6]+shift_history[0]+x_offset, pts[i,7]+shift_history[1]+y_offset,pts[i,8]+shift_history[2]+z_offset]],axis=0)
                 else:
-                    scene_out.write('v %f %f %f\n' % (pts[i,8]+shift_history[2]+x_offset, -(pts[i,6]+shift_history[0])+y_offset,-(pts[i,7]+shift_history[1])+z_offset ))
+                    scene_out.write('v %f %f %f\n' % (pts[i,6]+shift_history[0]+x_offset, pts[i,7]+shift_history[1]+y_offset,pts[i,8]+shift_history[2]+z_offset))
     scene_out.close()
     #fout_data_label.close()
     if VISU:
@@ -150,18 +142,16 @@ def eval_one_epoch(label_to_detect, sess, ops, out_data_label_filename,BATCH_SIZ
     if position_label.shape[0] > 0:
         print("found "+str(position_label.shape[0])+" points belong to the object")
         print(position_label.shape)
-        object_points = retranspose(position_label,x_offset,y_offset,z_offset,np.asarray(shift_history))
-
         obj_out = open('coke_object.obj', 'w')
-        for point_idx in range(object_points.shape[0]):
-            obj_out.write('v %f %f %f\n' % (object_points[point_idx,0], object_points[point_idx,1],object_points[point_idx,2]))
+        for point_idx in range(position_label.shape[0]):
+            obj_out.write('v %f %f %f\n' % (position_label[point_idx,0], position_label[point_idx,1],position_label[point_idx,2]))
         obj_out.close()
 
 
 
 
-        mean_location = np.mean(object_points,axis=0)
-        std = np.std(object_points,axis=0)
+        mean_location = np.mean(position_label,axis=0)
+        std = np.std(position_label,axis=0)
         print("object mean location = "+str(mean_location))
         print("object size (std) = "+str(std))
 
