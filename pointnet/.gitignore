@@ -5,6 +5,9 @@ __pycache__/
 *.txt
 *.npy
 *.obj
+*.key
+*.crt
+*.pem
 
 
 # C extensions

@@ -6,9 +6,8 @@ A robot arm control library with functions of instruction interpretation, object
 [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)  
 [ros_control](http://wiki.ros.org/ros_control)  
 [moveit!](https://moveit.ros.org/install/)  
-[gazebo_ros_pkgs](http://wiki.ros.org/gazebo_ros_pkgs)  
-[PCL_ROS](http://library.isr.ist.utl.pt/docs/roswiki/Documentation.html)  
-[PointCloudLibrary](http://www.pointclouds.org/downloads/linux.html)
+[gazebo_ros_pkgs](http://wiki.ros.org/gazebo_ros_pkgs)   
+[Pointnet](https://github.com/charlesq34/pointnet)  
 
 
 
@@ -64,44 +63,29 @@ play with the motion_planning plugin in rviz
 
 ![alt](/demo_img/moveit.gif)  
 
-### object recognition using PCL
+### Object Recognition using Pointnet
 
-we are using PCL(point cloud library) to process depth image data from ROS
-Here is a simple gazebo virtual environment
-containing our robotic arm, some basic background, a coke and a beer
-![alt](/demo_img/gazebo.JPG)
-You can see there is a kinectic depth camera besides the arm_moveit_config
+1. place a kinect in the gazebo Environment
+2. get raw point cloud data and preprocess
+   (seperate the data into small batches and do normalization etc.)
+    Here is the original point cloud data
+   ![alt](/demo_img/scene_grey.png)  
+3. feed the preprocess point cloud data into the pointnet
+    Here is the point cloud labeled by different colors:
+   ![alt](/demo_img/scene_color.png)  
 
-
-
-Here is what the depth camera sees:
-![alt](/demo_img/point_cloud_view.JPG)
-
-
-we are using [Correspondence Grouping](http://www.pointclouds.org/documentation/tutorials/correspondence_grouping.php) methods to find the coke can in the virtual environment
-![alt](/demo_img/pcd_location.JPG)
-You can see that rotational matrix and transitional matrix being calculated.
-The green dots in the picture are the matched corresponding points
-#### how to run pcl_recognition
-
-1. make sure you have install [PCL_ROS](http://wiki.ros.org/pcl_ros) which is a ROS package used as an interface with PCL
-2. make sure you have publish your points information to rostopic
-   run `rostopic list` to see whether you have `/camera/depth/points`
-3. run `cd pcl && rosrun pcl_ros pointcloud_to_pcd input:=/camera/depth/points`
-   this will save pcd file to local directory, you can change the name to scene.pcd
-4. run `./pcl coke_model.pcd scene.pcd -k -c --model_ss 0.02 --scene_ss 0.02 --cg_thresh 5 --cg_size 0.13`
+4. get the location of interested object according to labels' of points
+    
 
 
 ## Goals to achieve  
 
-1. Apply motion planning to low level control (ros_control)  
-2. Use C++ or Python to do the planning rather than rviz plugin.
-3. Implement 6DOF coordinate transformation from model-scene to arm-scene
+1. Apply in a real robotic arm.
 
 ## Alexa
 
 1.Go to Alexa developer console to create a new skill https://developer.amazon.com/alexa/console/ask
-2.Go to A mazon Web Service to create new Lambda function and ioT service https://console.aws.amazon.com/console/home?region=us-east-1# 
+2.Go to A mazon Web Service to create new Lambda function and ioT service https://console.aws.amazon.com/console/home?region=us-east-1#
 3.Use Alexa_skill.json to deploy your new skill
 4.Upload Lambda_arm_control.zip to deploy your Lambda function
 5.Connect three part together, and now you can see the topic published in AWS ioT MQTT client when you give new voice command to the Alexa
