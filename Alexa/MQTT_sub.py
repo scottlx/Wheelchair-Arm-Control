@@ -7,9 +7,6 @@ import ssl
 import sys
 sys.path.insert(0, './../pointnet')
 from inference import evaluate
-import rospy
-from roslib import message
-from std_msgs.msg import String
 
 
 def on_connect(client, userdata, flags, rc):
