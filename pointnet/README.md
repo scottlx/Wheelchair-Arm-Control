@@ -10,10 +10,6 @@ Basiclly, do the things below:
 
 
 ## Requirements
-[Ubuntu 18.04.1 LTS](http://releases.ubuntu.com/18.04)  
-[ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)  
-[gazebo_ros_pkgs](http://wiki.ros.org/gazebo_ros_pkgs)  
-[Ubuntu 18.04.1 LTS](http://releases.ubuntu.com/18.04)  
 [python 2.7](https://www.python.org/download/releases/2.7/)  
 [tensorflow 1.0](https://www.tensorflow.org/api_guides/python/upgrade)  
 [meshlab](http://www.meshlab.net/)  
