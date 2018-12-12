@@ -3,6 +3,7 @@
 A robot arm control library with functions of instruction interpretation, object recognition, arm motion planning and execution.
 ## Environment Setup
 [Ubuntu 18.04.1 LTS](http://releases.ubuntu.com/18.04)  
+[python 2.7](https://www.python.org/download/releases/2.7/)  
 [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)  
 [ros_control](http://wiki.ros.org/ros_control)  
 [moveit!](https://moveit.ros.org/install/)  
@@ -10,6 +11,8 @@ A robot arm control library with functions of instruction interpretation, object
 [Pointnet](https://github.com/charlesq34/pointnet)  
 [pyopenssl](https://github.com/pyca/pyopenssl)  
 [MQTT](https://github.com/mqtt/mqtt.github.io/wiki/software?id=software)  
+[tensorflow 1.0](https://www.tensorflow.org/api_guides/python/upgrade)  
+[meshlab](http://www.meshlab.net/)  
 
 
 
