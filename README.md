@@ -8,6 +8,8 @@ A robot arm control library with functions of instruction interpretation, object
 [moveit!](https://moveit.ros.org/install/)  
 [gazebo_ros_pkgs](http://wiki.ros.org/gazebo_ros_pkgs)   
 [Pointnet](https://github.com/charlesq34/pointnet)  
+[pyopenssl](https://github.com/pyca/pyopenssl)  
+[MQTT](https://github.com/mqtt/mqtt.github.io/wiki/software?id=software)  
 
 
 
@@ -75,7 +77,7 @@ play with the motion_planning plugin in rviz
    ![alt](/demo_img/scene_color.png)  
 
 4. get the location of interested object according to labels' of points
-    
+
 
 
 ## Goals to achieve  
