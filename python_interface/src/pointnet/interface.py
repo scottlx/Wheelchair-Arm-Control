@@ -88,7 +88,7 @@ class MoveGroupPythonIntefaceTutorial(object):
     ##
     ## First initialize `moveit_commander`_ and a `rospy`_ node:
     moveit_commander.roscpp_initialize(sys.argv)
-    # rospy.init_node('move_group_python_interface_tutorial', anonymous=True)
+    rospy.init_node('move_group_python_interface_tutorial', anonymous=True)
 
     ## Instantiate a `RobotCommander`_ object. Provides information such as the robot's
     ## kinematic model and the robot's current joint states
@@ -361,7 +361,14 @@ class MoveGroupPythonIntefaceTutorial(object):
     # reason not to.
     box_name = self.box_name
     scene = self.scene
-
+    scene_pose = geometry_msgs.msg.PoseStamped()
+    scene_pose.header.frame_id = "world"
+    scene_pose.pose.orientation.w = 1.0
+    scene_pose.pose.position.x = 0
+    scene_pose.pose.position.y = 0
+    scene_pose.pose.position.z = 0
+    scene_name = "scene"
+    scene.add_mesh(scene_name, scene_pose, "scene.stl")
     ## BEGIN_SUB_TUTORIAL add_box
     ##
     ## Adding Objects to the Planning Scene
@@ -455,17 +462,17 @@ class MoveGroupPythonIntefaceTutorial(object):
 
 def main():
   try:
-    print "============ Press `Enter` to recognize the object ..."
-    raw_input()
-    location, std = evaluate(label_to_detect=12, x_offset=0,y_offset=0, z_offset=1.55)
-    print(location)
-    print(std)
-    #location=[1.0653, -0.3668, 1.7145]
+    #print "============ Press `Enter` to recognize the object ..."
+    #raw_input()
+    #location, std = evaluate(label_to_detect=12, x_offset=0,y_offset=0, z_offset=1.55)
+    #print(location)
+    #print(std)
+    location=[0.6518, -0.03467, 1.35398]
     print "============ Press `Enter` to set up the moveit_commander ..."
     raw_input()
     tutorial = MoveGroupPythonIntefaceTutorial()
   
-    print "============ Press `Enter` to add a box ..."
+    print "============ Press `Enter` to add obstacle to the scene ..."
     raw_input()
     tutorial.add_box(location)
 

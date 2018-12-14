@@ -75,14 +75,12 @@ def split_rgb_field(cloud_arr):
 
 def topic2array(topic = "/camera/depth/points"):
     try:
-        rospy.init_node('listen', anonymous=True,disable_signals=True)
+        rospy.init_node('listen', anonymous=True)
         data = rospy.wait_for_message(topic, PointCloud2)
         #clear cache, I don't know why, but doing twice would get new and correct data
         data = rospy.wait_for_message(topic, PointCloud2)
-        pcarray = pointcloud2_to_array(data)
 
-        #after use, shutdown the node
-        rospy.signal_shutdown("point cloud got and store in numpy array")
+        pcarray = pointcloud2_to_array(data)
         rgb_arr = split_rgb_field(pcarray)
         final_arr = np.concatenate((pcarray[:,:3],rgb_arr),axis=1)
         return final_arr

@@ -109,12 +109,37 @@ def room2blocks_plus_normalized(data, num_point,block_size=0.2):
     return new_data_batch, max_room
 
 def align_shift(input_array):
+    # print(input_array.shape)
+    #
+    # test_out = open('test_out.obj', 'w')
+    # for point_idx in range(input_array.shape[0]):
+    #     test_out.write('v %f %f %f\n' % (input_array[point_idx,0], input_array[point_idx,1],input_array[point_idx,2]))
+    # test_out.close()
+
+    # from kinect to gazebo coordination
+    # x = z, y=-x, z=-y
+    x = input_array[:,2].copy()
+    y = -input_array[:,0].copy()
+    z = -input_array[:,1].copy()
+    input_array[:,0] = x
+    input_array[:,1] = y
+    input_array[:,2] = z
+
+
     min_xyz = np.amin(input_array,axis=0)[0:3]
     input_array[:,0] -= min_xyz[0]
     input_array[:,1] -= min_xyz[1]
     input_array[:,2] -= min_xyz[2]
     sorted_array = input_array[input_array[:,0].argsort()]
     shift_history = [min_xyz[0],min_xyz[1],min_xyz[2]]
+
+    # new_out = open('new.obj', 'w')
+    # for point_idx in range(sorted_array.shape[0]):
+    #     new_out.write('v %f %f %f\n' % (sorted_array[point_idx,0], sorted_array[point_idx,1],sorted_array[point_idx,2]))
+    # new_out.close()
+    #
+    # exit()
+
     return sorted_array, shift_history
 
 def pointcloud_wrapper(topic='/camera/depth/points'):

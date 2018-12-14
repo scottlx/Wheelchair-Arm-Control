@@ -88,7 +88,7 @@ class MoveGroupPythonIntefaceTutorial(object):
     ##
     ## First initialize `moveit_commander`_ and a `rospy`_ node:
     moveit_commander.roscpp_initialize(sys.argv)
-    rospy.init_node('move_group_python_interface_tutorial', anonymous=True)
+    #rospy.init_node('move_group_python_interface_tutorial', anonymous=True)
 
     ## Instantiate a `RobotCommander`_ object. Provides information such as the robot's
     ## kinematic model and the robot's current joint states
@@ -455,13 +455,12 @@ class MoveGroupPythonIntefaceTutorial(object):
 
 def main():
   try:
-    # print "============ Press `Enter` to recognize the object ..."
-    # raw_input()
-    # location, std = evaluate(label_to_detect=12, x_offset=0.35,y_offset=0.137, z_offset=0.1)
-    # print(location)
-    # print(std)
-
-    location=[0.6, 0, 1.5]
+    print "============ Press `Enter` to recognize the object ..."
+    raw_input()
+    location, std = evaluate(label_to_detect=12, x_offset=0,y_offset=0, z_offset=1.55)
+    print(location)
+    print(std)
+    #location=[0.997, -0.131, 1.4697]
     print "============ Press `Enter` to set up the moveit_commander ..."
     raw_input()
     tutorial = MoveGroupPythonIntefaceTutorial()
