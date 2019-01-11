@@ -1,6 +1,6 @@
 # Point Cloud Recognition Part
 
-Basiclly, do the things below:
+Basiclly, do the things below:  
 0. make sure your rostopic are publishing point cloud data
 1. fetch the point cloud data from rostopic and decoding
 2. do some preprocess to the point cloud data and transform it to numpy array
