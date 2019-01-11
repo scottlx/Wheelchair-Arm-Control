@@ -1,12 +1,12 @@
 # Point Cloud Recognition Part
 
 Basiclly, do the things below:  
-0. make sure your rostopic are publishing point cloud data
-1. fetch the point cloud data from rostopic and decoding
-2. do some preprocess to the point cloud data and transform it to numpy array
-3. feed the numpy array point cloud data to pretrained pointnet
-4. the user specify one class out of 12 to concerning on
-5. the program return the estimated location of the object belong to the class,and the std
+1. make sure your rostopic are publishing point cloud data
+2. fetch the point cloud data from rostopic and decoding
+3. do some preprocess to the point cloud data and transform it to numpy array
+4. feed the numpy array point cloud data to pretrained pointnet
+5. the user specify one class out of 12 to concerning on
+6. the program return the estimated location of the object belong to the class,and the std
 
 
 ## Requirements
