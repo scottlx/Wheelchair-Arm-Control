@@ -73,16 +73,17 @@ A python execution script which integrates the whole system
 
 4. get the location of interested object according to labels' of points
 
-
-
-## Goals to achieve  
-
-1. Apply in a real robotic arm.
-
-## Alexa
+### Alexa
 
 1.Go to Alexa developer console to create a new skill https://developer.amazon.com/alexa/console/ask
 2.Go to A mazon Web Service to create new Lambda function and ioT service https://console.aws.amazon.com/console/home?region=us-east-1#
 3.Use Alexa_skill.json to deploy your new skill
 4.Upload Lambda_arm_control.zip to deploy your Lambda function
 5.Connect three part together, and now you can see the topic published in AWS ioT MQTT client when you give new voice command to the Alexa
+
+
+## Goals to achieve  
+
+1. Apply in a real robotic arm.
+
+
